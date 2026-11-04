@@ -1,0 +1,63 @@
+[
+  {
+    "id": 1,
+    "amount": 45.5,
+    "category": "Food",
+    "date": "2026-11-01",
+    "description": "Team lunch at cafe"
+  },
+  {
+    "id": 2,
+    "amount": 120.0,
+    "category": "Utilities",
+    "date": "2026-11-01",
+    "description": "Monthly broadband connection"
+  },
+  {
+    "id": 3,
+    "amount": 18.25,
+    "category": "Transportation",
+    "date": "2026-11-02",
+    "description": "Bus & subway pass"
+  },
+  {
+    "id": 4,
+    "amount": 75.9,
+    "category": "Food",
+    "date": "2026-11-02",
+    "description": "Grocery shopping"
+  },
+  {
+    "id": 5,
+    "amount": 35.0,
+    "category": "Education",
+    "date": "2026-11-03",
+    "description": "Python algorithms book"
+  },
+  {
+    "id": 6,
+    "amount": 12.5,
+    "category": "Food",
+    "date": "2026-11-03",
+    "description": "Coffee & pastry"
+  },
+  {
+    "id": 7,
+    "amount": 250.0,
+    "category": "Travel",
+    "date": "2026-10-15",
+    "description": "Train tickets for tech conference"
+  },
+  {
+    "id": 8,
+    "amount": 85.0,
+    "category": "Food",
+    "date": "2026-10-16",
+    "description": "Conference dinner"
+  },
+  {
+    "amount": 20.0,
+    "category": "Hiking",
+    "date": "2026-11-4"
+  }
+]

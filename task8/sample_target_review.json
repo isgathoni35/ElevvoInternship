@@ -1,0 +1,64 @@
+{
+  "file": "sample_target.py",
+  "total_lines": 19,
+  "findings_count": 7,
+  "findings": [
+    {
+      "category": "Pep 8",
+      "issue": "Line exceeds 79 characters (90 chars).",
+      "line": 1,
+      "line_status": "verified",
+      "suggestion": "Break long expressions into multiple lines per PEP 8 guidelines.",
+      "replacement_code": ""
+    },
+    {
+      "category": "Pep 8",
+      "issue": "Line exceeds 79 characters (104 chars).",
+      "line": 3,
+      "line_status": "verified",
+      "suggestion": "Break long expressions into multiple lines per PEP 8 guidelines.",
+      "replacement_code": ""
+    },
+    {
+      "category": "Pep 8",
+      "issue": "Line exceeds 79 characters (106 chars).",
+      "line": 9,
+      "line_status": "verified",
+      "suggestion": "Break long expressions into multiple lines per PEP 8 guidelines.",
+      "replacement_code": ""
+    },
+    {
+      "category": "Pep 8",
+      "issue": "Line exceeds 79 characters (87 chars).",
+      "line": 10,
+      "line_status": "verified",
+      "suggestion": "Break long expressions into multiple lines per PEP 8 guidelines.",
+      "replacement_code": ""
+    },
+    {
+      "category": "Bug",
+      "issue": "Mutable default argument used in function definition.",
+      "line": 3,
+      "line_status": "verified",
+      "suggestion": "Replace default mutable container with None and initialize inside function body.",
+      "replacement_code": "def calculate_discount(..., items=None):"
+    },
+    {
+      "category": "Refactor",
+      "issue": "For-loop with manual index incrementing detected.",
+      "line": 15,
+      "line_status": "verified",
+      "suggestion": "Use built-in enumerate() to iterate with index idiomatically.",
+      "replacement_code": "for idx, itm in enumerate(items):"
+    },
+    {
+      "category": "Bug",
+      "issue": "Potential division by zero.",
+      "line": 7,
+      "line_status": "verified",
+      "suggestion": "Validate divisor is non-zero before performing division.",
+      "replacement_code": ""
+    }
+  ],
+  "discarded_count": 0
+}
