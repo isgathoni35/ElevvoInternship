@@ -12,6 +12,38 @@ import re
 from pathlib import Path
 from typing import List, Dict, Any, Tuple
 import numpy as np
+import requests
+from dotenv import load_dotenv
+
+# Load .env file from the script directory if present
+load_dotenv(Path(__file__).parent / ".env")
+
+
+def call_llm_synthesis(context: str, question: str, api_key: str, timeout: int = 15) -> str:
+    """Synthesize natural answer using OpenAI API based strictly on retrieved context."""
+    url = "https://api.openai.com/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {api_key.strip()}",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "model": "gpt-4o-mini",
+        "messages": [
+            {
+                "role": "system",
+                "content": "You are a helpful assistant. Answer the user question based strictly on the provided documentation context. Do not invent facts."
+            },
+            {
+                "role": "user",
+                "content": f"Documentation Context:\n{context}\n\nQuestion: {question}"
+            }
+        ],
+        "temperature": 0.2
+    }
+    response = requests.post(url, headers=headers, json=payload, timeout=timeout)
+    response.raise_for_status()
+    data = response.json()
+    return data["choices"][0]["message"]["content"].strip()
 
 
 class DocumentChunker:
@@ -188,7 +220,7 @@ class RAGTool:
                 "status": "declined_below_threshold"
             }
 
-        # Synthesize answer from the retrieved chunk
+        # Synthesize answer (via live LLM if key present, else local synthesis)
         citations = []
         context_snippets = []
         for chunk, score in matches:
@@ -196,10 +228,22 @@ class RAGTool:
                 citations.append(f"{chunk['source']} (Chunk #{chunk['chunk_id']}, Score: {score:.2f})")
                 context_snippets.append(chunk["text"])
 
-        answer_text = (
-            f"Based on the internal documentation:\n"
-            f"\"{best_chunk['text']}\""
-        )
+        api_key = os.getenv("OPENAI_API_KEY")
+        if api_key and api_key.strip():
+            combined_context = "\n\n".join(context_snippets)
+            try:
+                answer_text = call_llm_synthesis(combined_context, question, api_key)
+            except Exception as e:
+                # Graceful fallback to local synthesis if network or API key fails
+                answer_text = (
+                    f"Based on internal documentation (API notice: {e}):\n"
+                    f"\"{best_chunk['text']}\""
+                )
+        else:
+            answer_text = (
+                f"Based on the internal documentation:\n"
+                f"\"{best_chunk['text']}\""
+            )
 
         return {
             "answer": answer_text,

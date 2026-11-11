@@ -142,7 +142,7 @@ Parses job listings using `BeautifulSoup`, checks `robots.txt` compliance, analy
 ---
 
 ### Task 7: LLM-Powered Document Q&A (RAG Basics)
-Splits sample company documents into chunks, builds a vector store with normalized term embeddings, and enforces a **hard confidence threshold** (0.35) below which it declines to answer with *"I don't know."*
+Splits sample company documents into chunks, builds a vector store with normalized term embeddings, and enforces a **hard confidence threshold** (0.35) below which it declines to answer with *"I don't know."* Supports live OpenAI API integration via `.env` with seamless fallback to local synthesis.
 
 - **To test a relevant question (returns answer + citations)**:
   ```bash
@@ -164,7 +164,7 @@ Splits sample company documents into chunks, builds a vector store with normaliz
 ---
 
 ### Task 8: AI-Assisted Code Review Tool
-Inspects Python code for bugs (mutable defaults, zero division), PEP 8 compliance (line length), and refactoring opportunities, producing a structured JSON report and unified diff previews.
+Inspects Python code for bugs (mutable defaults, zero division), PEP 8 compliance (line length), and refactoring opportunities, producing a structured JSON report and unified diff previews. Supports live OpenAI API integration via `.env` alongside an offline AST analysis engine.
 
 - **To run code review with diff preview**:
   ```bash
@@ -180,7 +180,7 @@ Inspects Python code for bugs (mutable defaults, zero division), PEP 8 complianc
 ---
 
 ### Task 9: AI Agent for a Two-Tool Task
-Autonomous agent with a strict 5-step loop limit, tool dispatch (`calculator` and `file_writer`), and action-only logging (never logging internal reasoning).
+Autonomous agent with a strict 5-step loop limit, tool dispatch (`calculator` and `file_writer`), and action-only logging (never logging internal reasoning). Supports live OpenAI step planning via `.env` alongside an offline deterministic goal planner.
 
 - **To run the reference workflow**:
   ```bash

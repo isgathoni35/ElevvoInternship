@@ -7,12 +7,58 @@ tool dispatch (calculator, file-writer, and search), action-only execution loggi
 
 import argparse
 import ast
+import json
 import logging
 import operator
 import os
 import re
 from pathlib import Path
 from typing import Dict, Any, Tuple
+import requests
+from dotenv import load_dotenv
+
+# Load .env file from the script directory if present
+load_dotenv(Path(__file__).parent / ".env")
+
+
+def call_llm_agent_planner(goal: str, history: list, api_key: str, timeout: int = 15) -> dict:
+    """Send goal and tool history to OpenAI to decide next tool action."""
+    url = "https://api.openai.com/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {api_key.strip()}",
+        "Content-Type": "application/json"
+    }
+    history_desc = "\n".join([f"Step {h['step']}: Tool '{h['tool']}' with args {h['args']} -> Output: {h['output']}" for h in history]) or "None (starting first step)"
+    prompt = f"""Goal: {goal}
+Available Tools:
+1. calculator(expression: str) -> evaluates math expressions
+2. file_writer(filename: str, content: str) -> writes text to a file
+3. search(query: str) -> searches knowledge base
+
+History of previous steps:
+{history_desc}
+
+Decide the immediate next step. Return ONLY a JSON object:
+If calling a tool:
+{{"action": "call_tool", "tool": "calculator|file_writer|search", "args": {{"arg_name": "value"}}}}
+If goal is finished:
+{{"action": "finish", "report": "Summary of what was achieved"}}
+"""
+    payload = {
+        "model": "gpt-4o-mini",
+        "messages": [
+            {"role": "system", "content": "You are an autonomous AI Agent planner. Return only valid JSON for the next tool action."},
+            {"role": "user", "content": prompt}
+        ],
+        "temperature": 0.0
+    }
+    response = requests.post(url, headers=headers, json=payload, timeout=timeout)
+    response.raise_for_status()
+    raw = response.json()["choices"][0]["message"]["content"].strip()
+    if raw.startswith("```"):
+        raw = re.sub(r"^```(?:json)?\s*", "", raw)
+        raw = re.sub(r"\s*```$", "", raw)
+    return json.loads(raw)
 
 
 # Setup action-only logging
@@ -127,6 +173,14 @@ class AIAgent:
         Crucial Rule: Internal reasoning is NOT logged to the action log.
         """
         self.llm_call_count += 1
+
+        api_key = os.getenv("OPENAI_API_KEY")
+        if api_key and api_key.strip():
+            try:
+                return call_llm_agent_planner(goal, history, api_key)
+            except Exception:
+                # Seamless fallback to deterministic planner on API/network error
+                pass
 
         # Check if goal involves percentage / math and file writing
         # Example goal: "What's 15% of 240, and save the answer to a file called result.txt?"

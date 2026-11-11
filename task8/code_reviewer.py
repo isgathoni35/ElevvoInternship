@@ -16,9 +16,42 @@ import os
 import re
 from pathlib import Path
 from typing import List, Dict, Any, Tuple
+import requests
+from dotenv import load_dotenv
+
+# Load .env file from the script directory if present
+load_dotenv(Path(__file__).parent / ".env")
 
 
 REQUIRED_FIELDS = ["category", "issue", "line", "suggestion"]
+
+
+def call_llm_reviewer(prompt: str, api_key: str, timeout: int = 20) -> list:
+    """Send structured code review prompt to OpenAI API."""
+    url = "https://api.openai.com/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {api_key.strip()}",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "model": "gpt-4o-mini",
+        "messages": [
+            {
+                "role": "system",
+                "content": "You are a senior Python code reviewer. Always respond ONLY with a valid JSON array of objects adhering strictly to the requested schema."
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        "temperature": 0.1
+    }
+    response = requests.post(url, headers=headers, json=payload, timeout=timeout)
+    response.raise_for_status()
+    data = response.json()
+    raw_content = data["choices"][0]["message"]["content"]
+    return extract_json_from_text(raw_content)
 
 
 def build_review_prompt(source_code: str, filename: str = "code.py") -> str:
@@ -226,8 +259,20 @@ def run_code_review(file_path: str, diff_mode: bool = False):
     print(f"       Total Lines: {total_lines} | Mode: Read-Only Analysis")
     print("=" * 65)
 
-    # In production with API key, LLM would be called; here we run our engine
-    raw_suggestions = analyze_code_locally(content, path.name)
+    # In live mode with API key, query OpenAI; otherwise use local AST engine
+    api_key = os.getenv("OPENAI_API_KEY")
+    raw_suggestions = None
+    if api_key and api_key.strip():
+        print("[Live Mode] Dispatching code review prompt to OpenAI API...")
+        try:
+            prompt = build_review_prompt(content, path.name)
+            raw_suggestions = call_llm_reviewer(prompt, api_key)
+        except Exception as e:
+            print(f"[Notice] LLM API call error ({e}). Falling back to local AST analysis.")
+            raw_suggestions = None
+
+    if raw_suggestions is None:
+        raw_suggestions = analyze_code_locally(content, path.name)
 
     # Perform strict validation
     valid_entries, discarded = validate_review_entries(raw_suggestions, total_lines)
