@@ -81,7 +81,7 @@ class TestAIAgent(unittest.TestCase):
         self.assertNotIn("chain-of-thought", full_logs)
         self.assertNotIn("<thinking>", full_logs)
 
-        # 4. Assert LLM calls were tracked (Bonus)
+        # 4. Assert LLM calls were tracked
         self.assertGreaterEqual(result["llm_calls"], 2)
 
     def test_execution_loop_limit(self):

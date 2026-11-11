@@ -7,7 +7,7 @@ A modular Python module and runner script that processes student records, calcul
 ## Features
 - **Modular Design**: Core functions are organized in an importable `grade_processor.py` module.
 - **Input Validation**: Ensures scores are within $0 \le \text{score} \le 100$.
-- **Custom Exception & Type Hints (Bonus)**: Uses `InvalidScoreError` to handle out-of-range scores and includes Python type hints on all function signatures.
+- **Custom Exception & Type Hints**: Uses `InvalidScoreError` to handle out-of-range scores and includes Python type hints on all function signatures.
 
 ---
 

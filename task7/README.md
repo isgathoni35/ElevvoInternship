@@ -7,7 +7,7 @@ A minimal Retrieval-Augmented Generation (RAG) tool that indexes local documents
 ## Features
 - **Document Chunking**: Splits documents into overlapping fixed-size chunks with metadata (`source`, `chunk_id`).
 - **Vector Store & Embeddings**: In-memory vector store computing normalized term embeddings and cosine similarity.
-- **Strict Confidence Threshold Guard (Core Requirement)**: If the highest similarity score falls below `similarity_threshold` (default: 0.35), the tool declines to guess and returns `"I don't know."`
+- **Confidence Threshold Cutoff**: If the highest similarity score falls below `similarity_threshold` (default: 0.35), the tool declines to guess and returns `"I don't know."`
 - **Source Citations**: Cites the exact document filename and chunk number for verified answers.
 - **Multi-Format Support**: Automatically indexes both `.txt` and `.md` files.
 

@@ -1,8 +1,8 @@
-"""AI Agent for a Two-Tool Task (Task 9).
+"""AI Agent for Tool Execution.
 
 Implements an autonomous agent with a limited execution loop (max 5 steps),
-tool dispatch (calculator, file-writer, and search), action-only execution logging
-(strictly omitting internal reasoning), and LLM call tracking.
+tool dispatch (calculator, file-writer, and search), action execution logging,
+and request tracking.
 """
 
 import argparse
@@ -135,7 +135,7 @@ def tool_file_writer(filename: str, content: str) -> str:
 
 
 def tool_search_knowledge_base(query: str) -> str:
-    """Tool 3 (Bonus): Quick lookup in a local knowledge repository."""
+    """Lookup entry in local knowledge repository."""
     kb = {
         "elevo": "Elevo is a technology consultancy specializing in AI systems and backend engineering.",
         "python": "Python is a high-level interpreted programming language designed for readability.",
@@ -165,13 +165,10 @@ class AIAgent:
     def __init__(self, max_steps: int = 5, logger: logging.Logger = None):
         self.max_steps = max_steps
         self.logger = logger or setup_agent_logger()
-        self.llm_call_count = 0  # Bonus: track LLM calls
+        self.llm_call_count = 0  # Track total LLM calls
 
     def _call_llm_planner(self, goal: str, history: list) -> Dict[str, Any]:
-        """Simulate or invoke LLM reasoning.
-
-        Crucial Rule: Internal reasoning is NOT logged to the action log.
-        """
+        """Plan next tool action based on goal and execution history."""
         self.llm_call_count += 1
 
         api_key = os.getenv("OPENAI_API_KEY")
@@ -266,7 +263,7 @@ class AIAgent:
                 tool_func = TOOLS[tool_name]
                 tool_output = tool_func(**tool_args)
 
-                # MANDATORY REQUIREMENT: Log tool calls and outputs ONLY (no internal reasoning)
+                # Log tool execution action and output
                 self.logger.info(
                     f"Step {step} | Tool Used: '{tool_name}' | Inputs: {tool_args} | Output: '{tool_output}'"
                 )

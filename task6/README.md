@@ -8,7 +8,7 @@ A web scraping and data analysis script built using `BeautifulSoup`, `pandas`, a
 - **Scraping with robots.txt Compliance**: Checks `robots.txt` using `urllib.robotparser` to ensure web scraping permissions before downloading web pages.
 - **HTML Extraction**: Parses job postings to extract `title`, `company`, `location`, `skills`, and `posted_date`.
 - **Data Analysis (`pandas`)**: Cleans extracted data, explodes multi-value skill tags, and identifies top in-demand roles and skills.
-- **Bonus Visualization (`matplotlib`)**: Generates a stacked bar chart (`skills_by_city.png`) illustrating skill distribution across different cities.
+- **Data Visualization (`matplotlib`)**: Generates a stacked bar chart (`skills_by_city.png`) illustrating skill distribution across different cities.
 
 ---
 

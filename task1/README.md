@@ -8,7 +8,7 @@ A clean, beginner-friendly command-line expense tracker built with Python and th
 - **In-Memory Storage**: Uses a Python list of dictionaries to manage expenses during runtime.
 - **Persistent Storage**: Automatically saves and reloads entries to/from a local `expenses.json` file.
 - **Interactive CLI**: Menu-driven interface allowing users to add expenses, view all entries, and exit.
-- **Bonus Feature (Monthly Summary)**: Aggregates total expenditure, item count, and category-level totals and averages for any given month using clean f-strings.
+- **Monthly Summary Report**: Aggregates total expenditure, item count, and category-level totals and averages for any given month using clean f-strings.
 
 ---
 

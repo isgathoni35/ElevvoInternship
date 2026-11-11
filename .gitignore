@@ -18,6 +18,10 @@ htmlcov/
 !task3/organizer.log
 !task9/agent_execution.log
 
+# Local agent instructions
+AGENTS.md
+GEMINI.md
+
 # OS generated files
 .DS_Store
 Thumbs.db

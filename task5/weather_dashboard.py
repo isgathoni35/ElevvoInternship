@@ -1,4 +1,4 @@
-"""Weather Dashboard Using a Public REST API (Task 5).
+"""Weather Dashboard Using a Public REST API.
 
 Fetches current weather for a specified city via OpenWeatherMap API (when API key is present)
 or automatically falls back to the free, keyless Open-Meteo API so live queries always succeed.

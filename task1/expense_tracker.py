@@ -1,8 +1,7 @@
-"""CLI Expense Tracker with Persistent Storage (Task 1).
+"""CLI Expense Tracker with Persistent Storage.
 
-A straightforward command-line application that tracks daily expenses,
-stores them in memory using lists of dictionaries, persists them to a local JSON
-file, and provides a monthly summary report with category aggregations.
+A command-line tool that tracks daily expenses, stores them in memory,
+persists records to a local JSON file, and provides monthly summary reports.
 """
 
 import json
@@ -140,7 +139,7 @@ def main():
         print("\n--- Menu ---")
         print("1. Add Expense")
         print("2. View All Expenses")
-        print("3. Monthly Summary Report (Bonus)")
+        print("3. Monthly Summary Report")
         print("4. Exit")
 
         choice = input("Select an option (1-4): ").strip()
@@ -154,7 +153,7 @@ def main():
 
             add_expense(expenses, amount, category, date)
             save_expenses(expenses)
-            print("[✓] Expense added and saved successfully!")
+            print("[OK] Expense added and saved successfully!")
 
         elif choice == "2":
             list_expenses(expenses)

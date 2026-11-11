@@ -9,7 +9,7 @@ A clean command-line weather tool that fetches live conditions from the OpenWeat
 - **Secrets Management**: Loads API credentials from a `.env` file or environment variables without exposing secrets in code.
 - **Error Handling**: Gracefully handles non-existent cities (404), invalid or missing API keys (401), request timeouts, and connection losses.
 - **Clean CLI UI**: Presents weather condition, temperature (°C), feels-like, humidity, and wind speed in an easy-to-read table.
-- **Bonus**: Automated offline unit test suite using `pytest` and `unittest.mock` to verify all status codes and exception handlers without making network calls.
+- **Automated Testing**: Offline test suite using `pytest` and `unittest.mock` verifying all status codes, parsing, and exception handlers without live network dependencies.
 
 ---
 

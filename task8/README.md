@@ -9,7 +9,7 @@ A Python code review tool that analyzes scripts for bugs, PEP 8 compliance, and 
 - **Strict Output Validation**: Validates that all findings contain required non-empty fields (`issue`, `line`, `suggestion`). Malformed or incomplete items are flagged and discarded.
 - **Line Verification**: Cross-references reported line numbers against the actual target file length. Out-of-bounds line numbers are marked as `"approximate"`.
 - **Read-Only Safety**: Strictly reviews and reports suggestions — never automatically executes or applies code changes.
-- **Diff Preview (Bonus)**: Generates unified before/after diffs for suggested line replacements.
+- **Diff Preview**: Generates unified before/after diffs for suggested line replacements.
 
 ---
 

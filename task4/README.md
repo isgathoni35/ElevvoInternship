@@ -8,7 +8,7 @@ An OOP-based inventory management module demonstrating inheritance, `@property` 
 - **Base `Product`**: Encapsulates product details with `@property` setters ensuring price and stock quantity remain non-negative.
 - **Subclass `PerishableProduct`**: Adds expiration tracking (`expiry_date`, `is_expired()`).
 - **`Inventory` Management**: Supports adding items, tracking stock changes, detecting low stock alerts, and generating tabular valuation reports.
-- **Bonus**: Custom `__str__` representations for clean object display and comprehensive automated tests.
+- **Formatting & Tests**: Custom `__str__` methods for readable object printing and automated test suite.
 
 ---
 

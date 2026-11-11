@@ -1,4 +1,4 @@
-"""Object-Oriented Inventory Management System (Task 4).
+"""Object-Oriented Inventory Management System.
 
 Features a base Product class with @property validation, a PerishableProduct
 subclass with expiry tracking, and an Inventory manager with alerts and reports.

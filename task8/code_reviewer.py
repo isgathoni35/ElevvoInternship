@@ -1,11 +1,8 @@
-"""AI-Assisted Code Review Tool (Task 8).
+"""AI-Assisted Code Review Tool.
 
 Reviews Python files for bugs, PEP 8 compliance, and refactoring opportunities.
-Parses LLM responses into structured JSON, enforces strict field validation,
-flags unverifiable line numbers as 'approximate', and previews before/after diffs.
-
-SAFETY NOTICE: This tool reviews and reports suggestions only. It does NOT
-automatically execute or apply any code changes.
+Parses review responses into structured JSON, verifies line references,
+and provides before/after diff previews without altering source files.
 """
 
 import argparse
@@ -293,7 +290,7 @@ def run_code_review(file_path: str, diff_mode: bool = False):
         print(f"    Issue      : {entry['issue']}")
         print(f"    Suggestion : {entry['suggestion']}")
 
-        # Bonus: Show diff if available
+        # Render diff preview if requested
         if diff_mode and entry.get("replacement_code") and entry["line"] > 0:
             diff_text = generate_diff(lines, entry["line"], entry["replacement_code"])
             print("    Diff Preview:")
@@ -314,7 +311,7 @@ def run_code_review(file_path: str, diff_mode: bool = False):
     report_json_path = path.parent / f"{path.stem}_review.json"
     report_json_path.write_text(json.dumps(report_data, indent=2), encoding="utf-8")
     print(f"\nStructured JSON report saved to: {report_json_path.name}")
-    print("\n[NOTE] Safe mode: No automated code changes were applied to your file.")
+    print("\nAnalysis complete. No source files were modified.")
 
 
 def main():

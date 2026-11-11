@@ -1,4 +1,4 @@
-"""Web Scraping and Analysis of Job Postings (Task 6).
+"""Web Scraping and Analysis of Job Postings.
 
 Extracts job listings from HTML, respects robots.txt rules,
 cleans and analyzes skills & roles using pandas, and visualizes
@@ -102,7 +102,7 @@ def analyze_jobs(jobs: list[dict]) -> tuple[pd.Series, pd.Series]:
 
 
 def visualize_skills_by_city(jobs: list[dict], output_file: str = "skills_by_city.png"):
-    """Generate and save a bar chart of top skills by city (Bonus)."""
+    """Generate and save a bar chart of top skills by city."""
     if not jobs:
         return
 
@@ -172,7 +172,7 @@ def main():
     for skill, count in top_skills.head(8).items():
         print(f"  {skill:<20} : {count} mention(s)")
 
-    # Generate Bonus Visualization
+    # Generate chart visualization
     visualize_skills_by_city(jobs, output_file=args.chart)
 
 

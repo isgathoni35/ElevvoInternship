@@ -1,7 +1,7 @@
-"""LLM-Powered Document Q&A Tool (RAG Basics) (Task 7).
+"""Document Q&A Tool (RAG Basics).
 
 Implements document chunking, vector embedding, cosine similarity search,
-a strict confidence threshold guard ('I don't know' for low similarity),
+confidence threshold cutoff ('I don't know' for low similarity),
 and answer synthesis with source chunk citations.
 """
 
@@ -207,7 +207,7 @@ class RAGTool:
 
         best_chunk, best_score = matches[0]
 
-        # CORE REQUIREMENT: Check similarity threshold before guessing
+        # Return fallback if top match is below similarity threshold
         if best_score < self.similarity_threshold:
             return {
                 "answer": "I don't know.",

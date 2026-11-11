@@ -45,7 +45,7 @@ class TestRAGTool(unittest.TestCase):
         self.assertIn("doc2_vacation_policy.txt", result["citations"][0])
 
     def test_decline_out_of_domain_question(self):
-        """Core requirement: tool must decline with 'I don't know' below similarity threshold."""
+        """Verify that out-of-domain queries return fallback answer."""
         rag = RAGTool(docs_directory=DOCS_DIR, similarity_threshold=0.35)
         # Completely unrelated question
         result = rag.answer_question("What is the recipe for chocolate lava cake on planet Mars?")

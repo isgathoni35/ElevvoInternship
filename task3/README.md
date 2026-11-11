@@ -7,8 +7,8 @@ A Python script that scans a target directory and organizes files into extension
 ## Features
 - **Extension Sorting**: Automatically moves files into subfolders corresponding to their file extension (e.g., `.pdf` $\rightarrow$ `pdf/`, `.txt` $\rightarrow$ `txt/`).
 - **Guaranteed No-Overwrite**: If a file with the same name already exists in the destination folder, the incoming file is safely renamed (e.g. `file_1.txt`, `file_2.txt`).
-- **Summary & Logging (Bonus)**: Prints move summaries to the console and logs all actions to `organizer.log`.
-- **Dry-Run Mode (Bonus)**: `--dry-run` flag previews all moves without altering files on disk.
+- **Summary & Logging**: Prints move summaries to the console and logs all actions to `organizer.log`.
+- **Dry-Run Mode**: `--dry-run` flag previews all moves without altering files on disk.
 
 ---
 

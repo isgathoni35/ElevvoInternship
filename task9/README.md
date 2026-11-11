@@ -5,13 +5,13 @@ A lightweight, autonomous AI agent capable of breaking down natural language goa
 ---
 
 ## Features
-- **Two Core Tools**:
+- **Tools**:
   - `calculator`: Safely evaluates arithmetic expressions using AST parsing (no unsafe `eval`).
   - `file_writer`: Writes generated results to specified local files.
-  - `search` (Bonus): Quick lookup tool for internal knowledge snippets.
-- **Limited Execution Loop (Core Constraint)**: Enforces a strict step cap (`max_steps = 5`) to prevent infinite looping.
-- **Action-Only Logging (Core Constraint)**: Uses Python's standard `logging` library to record tool name, input arguments, and output results. Never logs hidden reasoning or chain-of-thought tokens.
-- **Call Counting (Bonus)**: Tracks `llm_call_count` to record the exact number of planner/LLM calls made to fulfill the goal.
+  - `search`: Quick lookup tool for internal knowledge snippets.
+- **Limited Execution Loop**: Enforces a strict step cap (`max_steps = 5`) to prevent infinite looping.
+- **Action Logging**: Uses Python's standard `logging` library to record tool name, input arguments, and output results.
+- **Request Tracking**: Tracks `llm_call_count` to record the exact number of planner/LLM calls made to fulfill the goal.
 
 ---
 

@@ -1,7 +1,7 @@
-"""Automated File Organizer (Task 3).
+"""Automated File Organizer.
 
 Scans a target directory, sorts files into subfolders by extension,
-safely avoids overwriting existing files via unique renaming,
+avoids overwriting existing files via unique renaming,
 and optionally previews moves (--dry-run) and logs to file.
 """
 
@@ -26,7 +26,7 @@ def setup_logger(log_to_file=True, log_filename="organizer.log"):
     ch.setFormatter(formatter)
     logger.addHandler(ch)
 
-    # Optional file logging (Bonus)
+    # File logging handler
     if log_to_file:
         fh = logging.FileHandler(log_filename, encoding="utf-8")
         fh.setFormatter(formatter)
